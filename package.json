@@ -1,0 +1,27 @@
+{
+  "name": "course-tabnews",
+  "version": "1.0.0",
+  "description": "https://curso.dev",
+  "homepage": "https://github.com/Kakaroto1412/course-tabnews#readme",
+  "bugs": {
+    "url": "https://github.com/Kakaroto1412/course-tabnews/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kakaroto1412/course-tabnews.git"
+  },
+  "license": "MIT",
+  "author": "",
+  "main": "index.js",
+  "scripts": {
+   "dev":"next dev"
+  },
+  "dependencies": {
+    "next": "^13.1.6",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+   "engines": {
+    "node": ">=22.20.0"
+  }
+}
