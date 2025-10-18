@@ -2,13 +2,13 @@
   "name": "course-tabnews",
   "version": "1.0.0",
   "description": "https://curso.dev",
-  "homepage": "https://github.com/Kakaroto1412/course-tabnews#readme",
+  "homepage": 
   "bugs": {
-    "url": "https://github.com/Kakaroto1412/course-tabnews/issues"
+    "url": 
   },
   "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Kakaroto1412/course-tabnews.git"
+    "type": 
+    "url": 
   },
   "license": "MIT",
   "author": "",
