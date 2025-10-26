@@ -1,0 +1,5 @@
+root = true
+
+[*]
+indent_style = scace
+indent_size = 2
