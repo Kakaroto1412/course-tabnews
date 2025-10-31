@@ -1,7 +1,5 @@
-import { SpeedInsights } from "@vercel/speed-insights/next";
-
-function Home() {
-  return <SpeedInsights />;
+import function Home() {
+  return <h1>Hello World!</h1>;
 }
 
 export default Home;
