@@ -1,3 +1,9 @@
-{
-  "regions": ["gru1"]
-}
+[
+  {
+    "regions": ["gru1"]
+  },
+
+  {
+    "rewrites": [{ "source": "/(.*)", "destination": "/" }]
+  }
+]
