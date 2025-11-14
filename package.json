@@ -24,7 +24,7 @@
     "node": "22.x"
   },
   "devDependencies": {
-    "jest": "^29.6.2",
+    "jest": "^25.0.0",
     "prettier": "^3.6.2"
   }
 }
