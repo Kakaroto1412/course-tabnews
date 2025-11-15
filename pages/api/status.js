@@ -1,3 +1,0 @@
-// function status(request, respose) {
-
-// }

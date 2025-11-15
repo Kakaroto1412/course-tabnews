@@ -7,9 +7,6 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev ",
-    "build": "next build",
-    "start": "next start",
-    "lint": "prettier --check .",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
@@ -24,7 +21,7 @@
     "node": "22.x"
   },
   "devDependencies": {
-    "jest": "^25.0.0",
+    "jest": "^30.2.0",
     "prettier": "^3.6.2"
   }
 }
