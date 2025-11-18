@@ -1,3 +1,8 @@
 export default function Home() {
-  return <h1>testando</h1>;
+  return (
+    <main>
+      <h1>Implentando TabNews com Dechamps</h1>
+      <p>Devagar e vamos indo</p>
+    </main>
+  );
 }
