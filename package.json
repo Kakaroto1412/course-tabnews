@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Implementação do https://www.tabnews.com.br para o https://curso.dev",
   "license": "MIT",
-  "author": "",
+  "author": "DvDMr",
   "main": "index.js",
   "scripts": {
     "dev": "next dev",
@@ -16,21 +16,31 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --runInBand",
-    "type-check": "tsc --noEmit"
+    "test:ci": "jest --runInBand"
   },
   "dependencies": {
-    "next": "16.0.3",
-    "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "@eslint/compat": "^2.0.0",
+    "@eslint/migrate-config": "^2.0.0",
+    "next": "^16.0.3",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "overrides": {
+    "glob": "^9.0.0"
   },
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
-    "jest": "^25.0.0",
+    "depcheck": "^1.4.7",
+    "eslint": "^9.39.1",
+    "eslint-config-next": "^16.0.3",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^16.5.0",
+    "jest": "^30.2.0",
     "prettier": "^3.6.2"
   }
 }

@@ -1,5 +1,36 @@
-.next
-/node_modules
-.vercel
-/coverage
+# Dependências
+node_modules/
+.pnp/
+.pnp.js
+.npm/
 
+# Build do Next.js / outras builds
+.next/
+out/
+dist/
+
+# Testes / cobertura
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ambiente (variáveis sensíveis)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ferramentas / Plataformas
+.vercel
+
+# Sistema operacional / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
