@@ -15,15 +15,18 @@
   },
   "license": "MIT",
   "author": "",
+  "homepage": "https://github.com/Kakaroto1412/course-tabnews#readme",
   "dependencies": {
     "editorconfig": "^3.0.1",
-    "next": "^16.0.4",
+    "next": "^16.0.6",
     "pg": "^8.16.3",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "overrides": {
-    "glob": "^9.0.0"
+    "test-exclude": "^7.0.1",
+    "glob": "^10.5.0",
+    "inflight": "npm:ignore"
   },
   "engines": {
     "node": "24.x"
@@ -32,6 +35,6 @@
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
     "jest": "^30.2.0",
-    "prettier": "3.6.2"
+    "prettier": "3.7.2"
   }
 }
