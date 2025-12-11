@@ -2,27 +2,42 @@
   "name": "course-tabnews",
   "version": "1.0.0",
   "description": "Implementação do https://www.tabnews.com.br para o https://curso.dev",
-  "main": "index.js",
+  "license": "MIT",
+  "author": "",
+  "homepage": "https://github.com/Kakaroto1412/course-tabnews#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kakaroto1412/course-tabnews.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Kakaroto1412/course-tabnews/issues"
+  },
   "scripts": {
     "dev": "npm run services:up && next dev",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
-    "services:down": "docker compose -f infra/compose.yaml down",
+    "services:down": "docker compose -f infra/compose.yaml down -v",
     "lint": "npm run lint:check && npm run lint:fix",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
-    "test:watch": "jest --watchAll"
+    "test:watch": "jest --watchAll",
+    "build": "next build",
+    "start": "next start -p 3000"
   },
-  "license": "MIT",
-  "author": "",
-  "homepage": "https://github.com/Kakaroto1412/course-tabnews#readme",
   "dependencies": {
-    "editorconfig": "^3.0.1",
-    "next": "^16.0.7",
-    "pg": "^8.16.3",
+    "next": "^16.0.8",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1"
+    "react-dom": "^19.2.1",
+    "pg": "^8.16.3"
+  },
+  "devDependencies": {
+    "@emnapi/runtime": "^1.7.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "eslint-config-next": "^16.0.8",
+    "jest": "^30.2.0",
+    "prettier": "^3.7.4"
   },
   "overrides": {
     "test-exclude": "^7.0.1",
@@ -31,11 +46,5 @@
   },
   "engines": {
     "node": "24.x"
-  },
-  "devDependencies": {
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "jest": "^30.2.0",
-    "prettier": "3.7.4"
   }
 }

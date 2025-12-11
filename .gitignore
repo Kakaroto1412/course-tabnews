@@ -9,3 +9,4 @@ node_modules/
 # Ferramentas / Plataformas
 .vercel
 .vscode/
+.env*.local
