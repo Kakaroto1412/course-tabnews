@@ -17,25 +17,26 @@
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down -v",
+    "start": "next start -p 3000",
     "lint": "npm run lint:check && npm run lint:fix",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watchAll",
-    "build": "next build",
-    "start": "next start -p 3000"
+    "build": "next build"
   },
   "dependencies": {
-    "next": "^16.0.8",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "pg": "^8.16.3"
+    "next": "^16.0.10",
+    "npm": "^11.7.0",
+    "pg": "^8.16.3",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
     "@emnapi/runtime": "^1.7.1",
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.0",
-    "eslint-config-next": "^16.0.8",
+    "@testing-library/react": "^16.3.1",
+    "eslint-config-next": "^16.0.10",
     "jest": "^30.2.0",
     "prettier": "^3.7.4"
   },
@@ -45,6 +46,6 @@
     "inflight": "npm:ignore"
   },
   "engines": {
-    "node": "24.x"
+    "node": ">=24.0.0 <25.0.0"
   }
 }
