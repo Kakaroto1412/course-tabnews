@@ -26,7 +26,8 @@
     "build": "next build"
   },
   "dependencies": {
-    "next": "^16.0.10",
+    "dotenv": "^17.2.3",
+    "next": "^16.1.0",
     "npm": "^11.7.0",
     "pg": "^8.16.3",
     "react": "^19.2.3",
@@ -36,7 +37,7 @@
     "@emnapi/runtime": "^1.7.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
-    "eslint-config-next": "^16.0.10",
+    "eslint-config-next": "^16.1.0",
     "jest": "^30.2.0",
     "prettier": "^3.7.4"
   },
