@@ -26,15 +26,14 @@
     "build": "next build"
   },
   "dependencies": {
+    "@neondatabase/serverless": "^1.0.2",
+    "cross-spawn": "^7.0.6",
+    "dotenv": "^17.2.3",
+    "lru-cache": "^11.2.4",
     "next": "^16.1.1",
     "pg": "^8.16.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "cross-spawn": "^7.0.6",
-    "cross-spawn-async": "^2.2.5",
-    "dotenv": "^17.2.3",
-    "lru-cache": "^11.2.4",
-    "@neondatabase/serverless": "^1.0.2",
     "rimraf": "^6.1.2"
   },
   "devDependencies": {

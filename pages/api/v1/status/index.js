@@ -8,12 +8,10 @@ async function status(request, response) {
 
   const databaseVersionResult = await database.query("SHOW server_version;");
   const databaseVersionValue = databaseVersionResult.rows[0].server_version;
-  console.log(databaseVersionValue);
 
   const databaseMaxConnectionsResult = await database.query(
     "SHOW max_connections;",
   );
-  console.log(databaseMaxConnectionsResult);
 
   const databaseMaxConnectionsValue =
     databaseMaxConnectionsResult.rows[0].max_connections;
@@ -26,13 +24,14 @@ async function status(request, response) {
 
   const databaseOpendConncetionsValue =
     databaseOpendConncetionsResult.rows[0].count;
+  console.log("connctions", databaseOpendConncetionsValue);
 
   response.status(200).json({
     updated_at: updatedAt,
     dependencies: {
       database: {
-        version: databaseVersionValue,
-        max_connections: parseInt(databaseMaxConnectionsValue),
+        version: parseFloat(databaseVersionValue),
+        max_connections: parseFloat(databaseMaxConnectionsValue),
         opened_connections: databaseOpendConncetionsValue,
       },
     },
