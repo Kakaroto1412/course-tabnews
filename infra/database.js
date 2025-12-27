@@ -1,21 +1,34 @@
-import { Client, Query } from "pg";
+import { Client } from "pg";
 
-async function query(queryObject) {
-  const client = new Client({
+function createClient() {
+  const mode = process.env.DATABASE_MODE ?? "local";
+
+  //Production
+  if (mode === "neon") {
+    return new Client({
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        require: true,
+        rejectUnauthorized: false,
+      },
+    });
+  }
+
+  // local DEV (no ssl)
+  return new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
     ssl: true,
+    ssl: process.env.NODE_ENV === "development" ? false : true,
   });
-  console.log("crendentials Postgres:", {
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT,
-    user: process.env.POSTGRES_USER,
-    database: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD,
-  });
+}
+
+async function query(queryObject) {
+  const client = createClient();
+
   try {
     await client.connect();
     const result = await client.query(queryObject);
@@ -24,10 +37,8 @@ async function query(queryObject) {
     console.error(error);
     throw error;
   } finally {
-    // await client.end();
+    await client.end();
   }
 }
 
-export default {
-  query: query,
-};
+export default { query };

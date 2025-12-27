@@ -26,12 +26,16 @@
     "build": "next build"
   },
   "dependencies": {
-    "dotenv": "^17.2.3",
     "next": "^16.1.1",
-    "npm": "^11.7.0",
     "pg": "^8.16.3",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "react-dom": "^19.2.3",
+    "cross-spawn": "^7.0.6",
+    "cross-spawn-async": "^2.2.5",
+    "dotenv": "^17.2.3",
+    "lru-cache": "^11.2.4",
+    "@neondatabase/serverless": "^1.0.2",
+    "rimraf": "^6.1.2"
   },
   "devDependencies": {
     "@emnapi/runtime": "^1.7.1",
@@ -47,6 +51,6 @@
     "inflight": "npm:ignore"
   },
   "engines": {
-    "node": ">=24.0.0 <25.0.0"
+    "node": ">=24.12.0 <25.0.0"
   }
 }

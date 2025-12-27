@@ -3,6 +3,7 @@ node_modules/
 
 # Build do Next.js / outras builds
 .next/
+infra/database.js.bak
 
 
 
