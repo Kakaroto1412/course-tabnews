@@ -23,14 +23,17 @@
     "lint:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watchAll",
+    "migration:create": "node-pg-migrate -m infra/migrations create",
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
     "build": "next build"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "cross-spawn": "^7.0.6",
-    "dotenv": "^17.2.3",
+    "dotenv": "^16.4.4",
     "lru-cache": "^11.2.4",
     "next": "^16.1.1",
+    "node-pg-migrate": "^6.2.2",
     "pg": "^8.16.3",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
