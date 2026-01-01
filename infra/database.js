@@ -4,7 +4,7 @@ function createClient() {
   const mode = process.env.DATABASE_MODE ?? "local";
 
   //Production
-  if (mode === "neon") {
+  if (mode === "dvdmr") {
     return new Client({
       connectionString: process.env.DATABASE_URL,
       ssl: {
@@ -40,4 +40,4 @@ async function query(queryObject) {
   }
 }
 
-export default { query };
+export default { query: query };

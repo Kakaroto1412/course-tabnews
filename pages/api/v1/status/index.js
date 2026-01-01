@@ -5,6 +5,7 @@ async function status(request, response) {
   // const responseBody = await response.json;
 
   const updatedAt = new Date().toISOString();
+  console.log("timezone", updatedAt);
 
   const databaseVersionResult = await database.query("SHOW server_version;");
   const databaseVersionValue = databaseVersionResult.rows[0].server_version;
@@ -21,6 +22,8 @@ async function status(request, response) {
     text: "SELECT count(*)::int FROM pg_stat_activity WHERE datname = $1;",
     values: [databaseName],
   });
+
+  console.log("DBname", databaseName);
 
   const databaseOpendConncetionsValue =
     databaseOpendConncetionsResult.rows[0].count;
