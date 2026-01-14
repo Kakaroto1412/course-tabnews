@@ -16,34 +16,26 @@
     "dev": "npm run services:up && next dev",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
-    "services:down": "docker compose -f infra/compose.yaml down -v",
-    "start": "next start -p 3000",
-    "lint": "npm run lint:check && npm run lint:fix",
+    "services:down": "docker compose -f infra/compose.yaml down",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
     "test": "jest",
-    "test:watch": "jest --watchAll",
+    "test:watch": "jest --watchAll --runInBand",
+    "test:ci": "jest --runInBand",
     "migration:create": "node-pg-migrate -m infra/migrations create",
-    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
-    "build": "next build"
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
     "cross-spawn": "^7.0.6",
-    "dotenv": "^16.4.4",
-    "lru-cache": "^11.2.4",
+    "dotenv": "^17.2.3",
     "next": "^16.1.1",
-    "node-pg-migrate": "^8.0.4",
-    "pg": "^8.16.3",
+    "node-pg-migrate": "^6.2.2",
+    "pg": "^8.11.3",
     "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "rimraf": "^6.1.2"
+    "react-dom": "^19.2.3"
   },
   "devDependencies": {
-    "@emnapi/runtime": "^1.7.1",
-    "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.1",
-    "eslint-config-next": "^16.1.1",
     "jest": "^30.2.0",
     "prettier": "^3.7.4"
   },

@@ -1,43 +1,36 @@
 import { Client } from "pg";
 
-function createClient() {
-  const mode = process.env.DATABASE_MODE ?? "local";
-
-  //Production
-  if (mode === "dvdmr") {
-    return new Client({
-      connectionString: process.env.DATABASE_URL,
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
-    });
+async function query(queryObject) {
+  let client;
+  try {
+    client = await getNewClient();
+    return await client.query(queryObject);
+  } finally {
+    if (client) await client.end();
   }
+}
 
-  // local DEV (no ssl)
-  return new Client({
+async function getNewClient() {
+  const client = new Client({
     host: process.env.POSTGRES_HOST,
     port: process.env.POSTGRES_PORT,
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    ssl: process.env.NODE_ENV === "development" ? false : true,
+    ssl: getSSLValues(),
   });
+  await client.connect();
+  return client;
 }
 
-async function query(queryObject) {
-  const client = createClient();
+export default {
+  query,
+  getNewClient,
+};
 
-  try {
-    await client.connect();
-    const result = await client.query(queryObject);
-    return result;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  } finally {
-    await client.end();
-  }
+function getSSLValues() {
+  if (process.env.POSTGRES_CA) return { ca: process.env.POSTGRES_CA };
+  if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test")
+    return false;
+  return true;
 }
-
-export default { query: query };
