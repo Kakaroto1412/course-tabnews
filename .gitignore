@@ -3,11 +3,39 @@ node_modules/
 
 # Build do Next.js / outras builds
 .next/
-infra/database.js.bak
+
 
 
 
 # Ferramentas / Plataformas
 .vercel
 .vscode/
+.swc/
+
+
+.hg
+.git
+.gitmodules
+.svn
+.cache
+.next
+.now
+.vercel
+.npmignore
+.dockerignore
+.gitignore
+.*.swp
+.DS_Store
+.wafpicke-*
+.lock-wscript
+.env.local
+.env.*.local
+.venv
+.yarn/cache
+npm-debug.log
+config.gypi
+node_modules
+__pycache__
+venv
+CVS
 .env*.local

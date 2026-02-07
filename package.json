@@ -19,21 +19,23 @@
     "services:down": "docker compose -f infra/compose.yaml down",
     "lint:check": "prettier --check .",
     "lint:fix": "prettier --write .",
-    "test": "jest",
     "test:watch": "jest --watchAll --runInBand",
-    "test:ci": "jest --runInBand",
+    "test": "jest --runInBand",
     "migration:create": "node-pg-migrate -m infra/migrations create",
-    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up"
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
+    "migration:up:prod": "node-pg-migrate -m infra/migrations up -d DATABASE_URL_UNPOOLED"
   },
   "dependencies": {
     "@neondatabase/serverless": "^1.0.2",
+    "@next/env": "^16.1.6",
+    "@vercel/toolbar": "^0.0.2",
     "cross-spawn": "^7.0.6",
     "dotenv": "^17.2.3",
     "next": "^16.1.4",
     "node-pg-migrate": "^6.2.2",
-    "pg": "^8.17.2",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3"
+    "pg": "^8.18.0",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4"
   },
   "devDependencies": {
     "jest": "^30.2.0",
