@@ -12,7 +12,7 @@ node_modules/
 .vscode/
 .swc/
 
-
+.env
 .hg
 .git
 .gitmodules
@@ -23,7 +23,6 @@ node_modules/
 .vercel
 .npmignore
 .dockerignore
-.gitignore
 .*.swp
 .DS_Store
 .wafpicke-*
