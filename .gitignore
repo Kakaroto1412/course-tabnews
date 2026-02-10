@@ -1,40 +1,39 @@
 # Dependências
 node_modules/
 
-# Build do Next.js / outras builds
+# Next.js
 .next/
+out/
+.vercel/
 
-
-
-
-# Ferramentas / Plataformas
-.vercel
-.vscode/
-.swc/
-
-.env
-.hg
-.git
-.gitmodules
-.svn
-.cache
-.next
-.now
-.vercel
-.npmignore
-.dockerignore
-.*.swp
-.DS_Store
-.wafpicke-*
-.lock-wscript
-.env.local
-.env.*.local
-.venv
-.yarn/cache
-npm-debug.log
-config.gypi
-node_modules
-__pycache__
-venv
-CVS
+# Ambientes
 .env*.local
+.env.local
+.env
+
+
+
+# Ferramentas
+.vscode/settings.json
+.swc/
+.vscode/
+.cache/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS/Editor
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+*.swp
+*.swo
+
+# Testes/CI
+coverage/
+.nyc_output/
+jest-*.json
