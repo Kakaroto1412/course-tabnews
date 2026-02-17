@@ -1,1 +1,3 @@
-.next
+# Ignore artifacts:
+# build
+# coverage

@@ -23,14 +23,13 @@ async function getNewClient() {
   return client;
 }
 
+function getSSLValues() {
+  if (process.env.POSTGRES_CA) {
+    return { ca: process.env.POSTGRES_CA, rejectUnauthorized: true };
+  }
+  return false;
+}
 export default {
   query,
   getNewClient,
 };
-
-function getSSLValues() {
-  if (process.env.POSTGRES_CA) return { ca: process.env.POSTGRES_CA };
-  if (process.env.NODE_ENV === "development" || process.env.NODE_ENV === "test")
-    return false;
-  return true;
-}
