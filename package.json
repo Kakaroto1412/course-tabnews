@@ -35,9 +35,9 @@
     "prettier": "^3.8.1"
   },
   "overrides": {
-    "test-exclude": "^7.0.1",
     "inflight": "npm:ignore",
-    "glob": "^13.0.1"
+    "glob": "^13.0.1",
+    "minimatch": "^10.2.1"
   },
   "engines": {
     "node": "24.x"
