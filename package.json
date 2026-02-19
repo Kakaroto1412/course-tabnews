@@ -21,9 +21,8 @@
     "migration:up": "node-pg-migrate -m infra/migrations --envPath .env up"
   },
   "dependencies": {
-    "cross-spawn": "^7.0.6",
-    "dotenv": "^16.4.4",
-    "dotenv-expand": "^11.0.6",
+    "dotenv": "^17.3.1",
+    "dotenv-expand": "^12.0.3",
     "next": "^16.1.6",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.11.0",
@@ -35,11 +34,10 @@
     "prettier": "^3.8.1"
   },
   "overrides": {
-    "test-exclude": "^7.0.1",
     "inflight": "npm:ignore",
     "glob": "^13.0.1"
   },
   "engines": {
-    "node": "22.x"
+    "node": "24.x"
   }
 }
