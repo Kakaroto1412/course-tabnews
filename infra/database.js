@@ -1,4 +1,7 @@
 import { Client } from "pg";
+import pkg from "pg";
+
+const { Client } = pkg;
 
 async function query(queryObject) {
   let client;
@@ -17,7 +20,10 @@ async function getNewClient() {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    ssl: false,
+    connectionString: process.env.DATABASE_URL,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   });
   await client.connect();
   return client;
