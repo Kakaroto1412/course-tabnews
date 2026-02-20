@@ -1,7 +1,4 @@
 import { Client } from "pg";
-import pkg from "pg";
-
-const { Client } = pkg;
 
 async function query(queryObject) {
   let client;
@@ -20,21 +17,18 @@ async function getNewClient() {
     user: process.env.POSTGRES_USER,
     database: process.env.POSTGRES_DB,
     password: process.env.POSTGRES_PASSWORD,
-    connectionString: process.env.DATABASE_URL,
-    ssl: {
-      rejectUnauthorized: false,
-    },
+    ssl: getSSLValues(),
   });
   await client.connect();
   return client;
 }
 
-// function getSSLValues() {
-//   if (process.env.POSTGRES_CA) {
-//     return { ca: process.env.POSTGRES_CA, rejectUnauthorized: false };
-//   }
-//   return false;
-// }
+function getSSLValues() {
+  if (process.env.POSTGRES_CA) {
+    return { ca: process.env.POSTGRES_CA, rejectUnauthorized: true };
+  }
+  return false;
+}
 export default {
   query,
   getNewClient,
