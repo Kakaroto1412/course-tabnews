@@ -21,6 +21,11 @@ async function getNewClient() {
   return client;
 }
 
+function normalizePem(pem = "") {
+  const cleaned = pem.trim().replace(/^['"]|['"]$/g, "");
+  return cleaned.includes("\\n") ? cleaned.replace(/\\n/g, "\n") : cleaned;
+}
+
 function getClientConfig() {
   const host = (process.env.POSTGRES_HOST || "")
     .trim()
@@ -33,9 +38,7 @@ function getClientConfig() {
 
   const isNeon = host.includes(".neon.tech");
 
-  if (isNeon) {
-    const ca = (env.POSTGRES_SSL_CA || "").trim();
-  }
+  const ca = process.env.POSTGRES_SSL_CA;
 
   // 🔐 Neon exige SSL obrigatório
   if (isNeon) {
@@ -46,8 +49,8 @@ function getClientConfig() {
       password,
       database,
       ssl: {
-        rejectUnauthorized: true,
-        ...(ca ? { ca } : {}),
+        rejectUnauthorized: false,
+        ca: normalizePem(process.env.POSTGRES_SSL_CA),
       },
     };
   }
