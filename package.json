@@ -4,7 +4,7 @@
   "description": "Implementação do https://www.tabnews.com.br para o https://curso.dev",
   "license": "MIT",
   "author": "",
-  "main": "index.js",
+  "main": "home",
   "scripts": {
     "dev": "npm run services:up && next dev",
     "build": "next build",

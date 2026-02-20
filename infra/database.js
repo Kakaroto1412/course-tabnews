@@ -1,35 +1,27 @@
 import { Client } from "pg";
 
-async function query(queryObject) {
-  let client;
-  try {
-    client = await getNewClient();
-    return await client.query(queryObject);
-  } finally {
-    if (client) await client.end();
-  }
-}
-
 async function getNewClient() {
-  const client = new Client({
-    host: process.env.POSTGRES_HOST,
-    port: process.env.POSTGRES_PORT,
-    user: process.env.POSTGRES_USER,
-    database: process.env.POSTGRES_DB,
-    password: process.env.POSTGRES_PASSWORD,
-    ssl: getSSLValues(),
-  });
+  const client = new Client(getClientConfig());
   await client.connect();
   return client;
 }
 
-function getSSLValues() {
-  if (process.env.POSTGRES_CA) {
-    return { ca: process.env.POSTGRES_CA, rejectUnauthorized: true };
+function getClientConfig() {
+  // Produção (Vercel + Neon)
+  if (process.env.DATABASE_URL) {
+    return {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }, // obrigatório para Neon + Vercel
+    };
   }
-  return false;
+
+  // Desenvolvimento local (Docker)
+  return {
+    host: process.env.POSTGRES_HOST || "localhost",
+    port: Number(process.env.POSTGRES_PORT ?? 5432),
+    user: process.env.POSTGRES_USER,
+    database: process.env.POSTGRES_DB,
+    password: process.env.POSTGRES_PASSWORD,
+    ssl: false,
+  };
 }
-export default {
-  query,
-  getNewClient,
-};
