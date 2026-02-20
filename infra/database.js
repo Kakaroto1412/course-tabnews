@@ -24,8 +24,8 @@ async function getNewClient() {
 }
 
 function getSSLValues() {
-  if (process.env.DABASE_URL) {
-    return { ca: process.env.DABASE_URL, rejectUnauthorized: false };
+  if (process.env.POSTGRES_CA) {
+    return { ca: process.env.POSTGRES_CA, rejectUnauthorized: true };
   }
   return false;
 }
