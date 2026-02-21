@@ -28,7 +28,7 @@ async function getNewClient() {
 //     return { ca: process.env.POSTGRES_CA, rejectUnauthorized: false };
 //   }
 //   return false;
-}
+// }
 export default {
   query,
   getNewClient,
