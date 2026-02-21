@@ -38,8 +38,6 @@ function getClientConfig() {
 
   const isNeon = host.includes(".neon.tech");
 
-  const ca = process.env.POSTGRES_SSL_CA;
-
   // 🔐 Neon exige SSL obrigatório
   if (isNeon) {
     return {
@@ -49,8 +47,8 @@ function getClientConfig() {
       password,
       database,
       ssl: {
-        rejectUnauthorized: false,
-        ca: normalizePem(process.env.POSTGRES_SSL_CA),
+        rejectUnauthorized: true,
+        ca: normalizePem(process.env.POSTGRES_SSL_CA || ""),
       },
     };
   }
