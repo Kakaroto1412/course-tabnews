@@ -21,8 +21,8 @@
   },
   "dependencies": {
     "cross-spawn": "^7.0.6",
-    "dotenv": "^16.4.4",
-    "dotenv-expand": "^11.0.6",
+    "dotenv": "^17.3.1",
+    "dotenv-expand": "^12.0.3",
     "next": "^16.1.6",
     "node-pg-migrate": "^6.2.2",
     "pg": "^8.11.0",
