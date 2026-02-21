@@ -39,29 +39,19 @@ function getClientConfig() {
   const isNeon = host.includes(".neon.tech");
 
   // 🔐 Neon exige SSL obrigatório
+
   if (isNeon) {
+    const ca = normalizePem(process.env.POSTGRES_SSL_CA || "");
+
     return {
       host,
       port,
       user,
       password,
       database,
-      ssl: {
-        rejectUnauthorized: true,
-        ca: normalizePem(process.env.POSTGRES_SSL_CA || ""),
-      },
+      ssl: ca ? { rejectUnauthorized: true, ca } : { rejectUnauthorized: true },
     };
   }
-
-  // 🧪 Docker / local (sem SSL)
-  return {
-    host: host || "localhost",
-    port,
-    user,
-    password,
-    database,
-    ssl: false,
-  };
 }
 
 // ⚠️ IMPORTANTE: manter EXACTAMENTE esse export (não quebrar o projeto)
