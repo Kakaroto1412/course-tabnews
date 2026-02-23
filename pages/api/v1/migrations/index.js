@@ -1,8 +1,8 @@
-import migrationRunner from "node-pg-migrate";
+// import { runner } from "node-pg-migrate";
 import { join } from "node:path";
 import database from "infra/database";
 
-export default async function migrations(request, response) {
+async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
   if (!allowedMethods.includes(request.method)) {
     return response.status(405).json({
@@ -12,36 +12,32 @@ export default async function migrations(request, response) {
   let dbClient;
   try {
     dbClient = await database.getNewClient();
-
+    const { runner } = await import("node-pg-migrate");
     const defaultMigrationOptions = {
-      dbClient: dbClient,
-      dir: join("infra", "migrations"),
+      dbClient,
+      dir: join(process.cwd(), "infra", "migrations"),
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
-      dryRun: true,
+      dryRun: request.method === "GET",
     };
-    if (request.method === "GET") {
-      const pedingMigrations = await migrationRunner(defaultMigrationOptions);
+    const result = await runner(defaultMigrationOptions);
 
-      return response.status(200).json(pedingMigrations);
-    }
     if (request.method === "POST") {
-      const migratedMigrations = await migrationRunner({
-        ...defaultMigrationOptions,
-        dryRun: false,
-      });
-
-      if (migratedMigrations.length > 0) {
-        return response.status(201).json(migratedMigrations);
-      }
-      return response.status(200).json(migratedMigrations);
+      return response.status(result.length > 0 ? 201 : 200).json(result);
     }
-    return response.status(405).end();
+
+    // GET
+    return response.status(200).json(result);
   } catch (error) {
     console.error(error);
-    throw error;
+    return response.status(500).json({
+      error: "Migration endpoint failed",
+      details: error?.message ?? String(error),
+    });
   } finally {
-    await dbClient.end();
+    if (dbClient) await dbClient.end();
   }
 }
+
+export default migrations;
