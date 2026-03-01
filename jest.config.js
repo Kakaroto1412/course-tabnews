@@ -1,6 +1,7 @@
 const dotenv = require("dotenv");
 dotenv.config({
   path: ".env",
+  quiet: true,
 });
 const nextJest = require("next/jest");
 

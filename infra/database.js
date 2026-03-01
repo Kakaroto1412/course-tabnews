@@ -21,22 +21,27 @@ async function getNewClient() {
   return client;
 }
 
+const clean = (v = "") => v.trim().replace(/^['"]|['"]$/g, "");
+
 function normalizePem(pem = "") {
-  const cleaned = pem.trim().replace(/^['"]|['"]$/g, "");
+  const cleaned = clean(pem);
   return cleaned.includes("\\n") ? cleaned.replace(/\\n/g, "\n") : cleaned;
 }
 
 function getClientConfig() {
-  const host = (process.env.POSTGRES_HOST || "")
-    .trim()
-    .replace(/^['"]|['"]$/g, ""); // remove aspas da Vercel
+  const host = clean(process.env.POSTGRES_HOST || "");
 
-  const port = Number(process.env.POSTGRES_PORT ?? 5432);
-  const user = (process.env.POSTGRES_USER || "").trim();
-  const password = process.env.POSTGRES_PASSWORD; // pode ser string vazia se não houver senha
-  const database = (process.env.POSTGRES_DB || "").trim();
+  const portRaw = (process.env.POSTGRES_PORT ?? "5432").toString().trim();
+  const port = Number(portRaw);
+  if (!Number.isInteger(port) || port <= 0) throw new Error("POSTGRES_PORT inválido");
 
-  // validações que evitam erro obscuro do pg
+  const user = clean(process.env.POSTGRES_USER || "");
+  const database = clean(process.env.POSTGRES_DB || "");
+  const password =
+    process.env.POSTGRES_PASSWORD === undefined
+      ? undefined
+      : clean(process.env.POSTGRES_PASSWORD);
+
   if (!host) throw new Error("POSTGRES_HOST não definido");
   if (!user) throw new Error("POSTGRES_USER não definido");
   if (!database) throw new Error("POSTGRES_DB não definido");
@@ -58,19 +63,12 @@ function getClientConfig() {
     };
   }
 
-  // ✅ localhost / qualquer outro Postgres sem SSL obrigatório
-  return {
-    host,
-    port,
-    user,
-    password,
-    database,
-  };
-} // ⚠️ IMPORTANTE: manter EXACTAMENTE esse export (não quebrar o projeto)
-const database = {
-  query,
-  getNewClient,
-};
+
+  return { host, port, user, password, database };
+}
+
+
+const database = { query, getNewClient };
 
 export default database;
 export { query, getNewClient, database };
