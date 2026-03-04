@@ -1,0 +1,18 @@
+name: Atumated Testes
+
+on: pull_request
+
+jobs:
+  jest:
+    name: jest Ubuntu
+    rubs_on: ubuntu_latest
+    stesps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup_node@v4
+        wich:
+          node_version: "lts/hydrogen"
+
+      - run: npm ci
+
+      - run: npm test
