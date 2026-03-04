@@ -1,17 +1,17 @@
-name: Atumated Testes
+name: Automated Tests
 
 on: pull_request
 
 jobs:
   jest:
-    name: jest Ubuntu
-    rubs_on: ubuntu_latest
-    stesps:
+    name: Jest Ubuntu
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup_node@v4
-        wich:
-          node_version: "lts/hydrogen"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "lts/hydrogen"
 
       - run: npm ci
 
