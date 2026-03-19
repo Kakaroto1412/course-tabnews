@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   jest:
+    name: Jest ubuntu
     runs-on: ubuntu-latest
 
     env:
@@ -14,7 +15,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 24
+          node-version: "lts/*"
           cache: npm
 
       - run: npm ci
