@@ -4,6 +4,7 @@ on: pull_request
 
 jobs:
   jest:
+    name: Jest ubuntu
     runs-on: ubuntu-latest
 
     env:
