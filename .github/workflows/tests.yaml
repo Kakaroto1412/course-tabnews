@@ -4,14 +4,16 @@ on: pull_request
 
 jobs:
   jest:
-    name: Jest Ubuntu
+    build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    name: Jest Ubuntu
 
-      - uses: actions/setup-node@v4
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
         with:
-          node-version: "lts/krypton"
+          node-version: "24"
+          package-manager-cache: false
 
       - run: npm ci
 
