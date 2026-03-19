@@ -1,21 +1,32 @@
 name: Automated Tests
 
-on: pull_request
+on:
+  pull_request
 
 jobs:
   jest:
     name: Jest ubuntu
     runs-on: ubuntu-latest
 
+    defaults:
+      run:
+        shell: bash
+
+    # <--- aqui você força o runner a usar Node 24 nas JS actions
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
         with:
-          node-version: "lts/*"
+          fetch-depth: 0
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        id: node
+        with:
+          node-version: 24.x
           cache: npm
 
       - run: npm ci

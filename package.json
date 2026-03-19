@@ -34,7 +34,8 @@
     "node-pg-migrate": "^8.0.4",
     "pg": "^8.20.0",
     "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "react-dom": "^19.2.4",
+    "semver": "^7.7.4"
   },
   "devDependencies": {
     "concurrently": "^9.2.1",
