@@ -6,15 +6,28 @@ jobs:
   jest:
     name: Jest ubuntu
     runs-on: ubuntu-latest
-
+    defaults:
+      run:
+        shell: bash
     steps:
+      - name: Checkout
       - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
         with:
-          node-version: 0.X >= 24
+          fetch-depth: 0
+      - name: Setup Node
+      - uses: actions/setup-node@v4
+        id: node
+        with:
+          node-version: 24.x
+          check-latest: contains('24.x', '.x')
+          uses: ./.github/actions/install-latest-npm
+        with:
+          node: ${{ steps.node.outputs.node-version }}
+
+        with:
           cache: npm
 
       - run: npm ci
 
       - run: npm test
+
