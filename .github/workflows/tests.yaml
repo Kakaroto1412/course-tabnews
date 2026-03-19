@@ -4,14 +4,18 @@ on: pull_request
 
 jobs:
   jest:
-    name: Jest Ubuntu
     runs-on: ubuntu-latest
+
+    env:
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "lts/krypton"
+          node-version: 24
+          cache: npm
 
       - run: npm ci
 
