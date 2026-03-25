@@ -1,10 +1,10 @@
-name: Automated Tests
+name: Linting
 
 on: pull_request
 
 jobs:
-  jest:
-    name: Jest ubuntu
+  prettier:
+    name: Prettier
     runs-on: ubuntu-latest
 
     defaults:
@@ -30,4 +30,4 @@ jobs:
 
       - run: npm ci
 
-      - run: npm test
+      - run: npm run lint:prettier:check

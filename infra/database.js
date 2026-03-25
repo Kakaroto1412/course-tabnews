@@ -33,7 +33,8 @@ function getClientConfig() {
 
   const portRaw = (process.env.POSTGRES_PORT ?? "5432").toString().trim();
   const port = Number(portRaw);
-  if (!Number.isInteger(port) || port <= 0) throw new Error("POSTGRES_PORT inválido");
+  if (!Number.isInteger(port) || port <= 0)
+    throw new Error("POSTGRES_PORT inválido");
 
   const user = clean(process.env.POSTGRES_USER || "");
   const database = clean(process.env.POSTGRES_DB || "");
@@ -63,10 +64,8 @@ function getClientConfig() {
     };
   }
 
-
   return { host, port, user, password, database };
 }
-
 
 const database = { query, getNewClient };
 
