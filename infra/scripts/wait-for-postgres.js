@@ -4,17 +4,15 @@ function checkPostgres() {
   exec("docker exec postgres-dev pg_isready --host localhost", handleReturn);
 
   function handleReturn(error, stdout) {
-    if (stdout.search("accepting connections") === -1) {
+    if (error || !stdout.includes("accepting connections")) {
       process.stdout.write(".");
-
-      checkPostgres();
+      setTimeout(checkPostgres, 1000);
       return;
     }
 
-    console.log("\n🟩🟩 Postgress  está pronto para connections\n");
+    console.log("\n🟢 Postgres está pronto e aceitando conexões!\n");
   }
-  // console.log("🔴🟢Postgress está pronto para connections");
 }
 
-process.stdout.write("\n\n🟥🟥 Aguardando Postgres Aceitar connections");
+process.stdout.write("\n\n🔴 Aguardando Postgres aceitar conexões");
 checkPostgres();
