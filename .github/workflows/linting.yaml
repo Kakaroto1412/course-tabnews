@@ -31,31 +31,32 @@ jobs:
       - run: npm ci
 
       - run: npm run lint:prettier:check
-        eslint: # <--- Eslint action
-          name: Eslint
-          runs-on: ubuntu-latest
+    eslint: # <--- Eslint action
+      name: Eslint
+      runs-on: ubuntu-latest
 
-          defaults:
-            run:
-              shell: bash
+      defaults:
+        run:
+          shell:
+            bash
 
-          # <--- aqui você força o runner a usar Node 24 nas JS actions
-          env:
-            FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+            # <--- aqui você força o runner a usar Node 24 nas JS actions
+        env:
+        FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
-          steps:
-            - name: Checkout
-              uses: actions/checkout@v4
-              with:
-                fetch-depth: 0
+        steps:
+          - name: Checkout
+            uses: actions/checkout@v4
+            with:
+              fetch-depth: 0
 
-            - name: Setup Node
-              uses: actions/setup-node@v4
-              id: node
-              with:
-                node-version: 24.x
-                cache: npm
+          - name: Setup Node
+            uses: actions/setup-node@v4
+            id: node
+            with:
+              node-version: 24.x
+              cache: npm
 
-            - run: npm ci
+          - run: npm ci
 
-            - run: npm run lint:eslint:check
+          - run: npm run lint:eslint:check
