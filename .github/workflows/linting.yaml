@@ -33,6 +33,7 @@ jobs:
       - run: npm run lint:prettier:check
 
         # <--- Eslint actions
+jobs:
     eslint:
       name: Eslint
       runs-on: ubuntu-latest
