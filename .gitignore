@@ -36,4 +36,4 @@ Thumbs.db
 # Testes/CI
 coverage/
 .nyc_output/
-jest-*.json
+
