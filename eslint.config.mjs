@@ -10,15 +10,6 @@ export default defineConfig([
   prettier,
 
   {
-    extends: [
-      "eslint:recommended",
-      "plugin:jest/recommended",
-      "next/core-web-vitals",
-      "prettier",
-    ],
-  },
-
-  {
     files: ["**/*.test.js", "**/*.spec.js", "tests/**/*.js"],
     ...jest.configs["flat/recommended"],
   },
