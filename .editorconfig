@@ -11,10 +11,4 @@ indent_size = 2
 [*.md]
 trim_trailing_whitespace = false
 
-[yaml]
-;
-quote_type = double
-indent_style = space
-indent_size = 2
-
 
