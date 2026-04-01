@@ -33,13 +33,11 @@
     "react-dom": "^19.2.4"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.5",
     "concurrently": "^9.2.1",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.1",
+    "eslint-config-next": "^16.2.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-jest": "^29.15.1",
-    "globals": "^17.4.0",
     "jest": "^30.3.0",
     "prettier": "^3.8.1"
   },
