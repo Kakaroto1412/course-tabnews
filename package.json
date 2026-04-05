@@ -47,6 +47,6 @@
     "inflight": "npm:ignore"
   },
   "engines": {
-    "node": "24"
+    "node": "24.x"
   }
 }
