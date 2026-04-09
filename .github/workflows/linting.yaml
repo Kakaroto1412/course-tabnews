@@ -34,7 +34,7 @@ jobs:
         run: npm run lint:prettier:check
 
   eslint:
-    name: Eslint
+    name: ESLint
     runs-on: ubuntu-latest
 
     defaults:
@@ -61,8 +61,9 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint:eslint:check
+
   commitlint:
-    name: commitlint
+    name: Commitlint
     runs-on: ubuntu-latest
 
     defaults:
@@ -87,5 +88,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run commitlint
-        run: npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+      - name: Run Commitlint
+        run: npx commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
