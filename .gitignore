@@ -10,7 +10,8 @@ out/
 .env*.local
 .env.local
 .env
-
+.env.production
+.env.development
 
 
 # Ferramentas
