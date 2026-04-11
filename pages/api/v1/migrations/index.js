@@ -1,6 +1,7 @@
 import { join } from "node:path";
 import database from "infra/database";
 const { runner } = await import("node-pg-migrate");
+const { ConnectionParameters } = await import(node - pg - migrate);
 
 async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
