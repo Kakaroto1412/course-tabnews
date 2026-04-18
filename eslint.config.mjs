@@ -4,6 +4,7 @@ import nextVitals from "eslint-config-next/core-web-vitals";
 import nextTs from "eslint-config-next/typescript";
 import jest from "eslint-plugin-jest";
 import prettier from "eslint-config-prettier/flat";
+import tseslint from "typescript-eslint";
 
 export default defineConfig([
   js.configs.recommended,
@@ -11,15 +12,30 @@ export default defineConfig([
   ...nextTs,
   prettier,
 
+  // TypeScript (garante funcionamento correto)
+  ...tseslint.configs.recommended,
+
+  // Testes (Jest)
   {
     files: [
       "**/*.test.{js,jsx,ts,tsx}",
       "**/*.spec.{js,jsx,ts,tsx}",
       "tests/**/*.{js,jsx,ts,tsx}",
     ],
-    ...jest.configs["flat/recommended"],
+    plugins: {
+      jest,
+    },
+    languageOptions: {
+      globals: {
+        ...jest.environments.globals.globals,
+      },
+    },
+    rules: {
+      ...jest.configs["flat/recommended"].rules,
+    },
   },
 
+  // Scripts
   {
     files: ["jest.config.{js,mjs,cjs}", "infra/scripts/**/*.{js,mjs,cjs}"],
     rules: {
@@ -27,6 +43,7 @@ export default defineConfig([
     },
   },
 
+  // Migrations
   {
     files: ["infra/migrations/**/*.{js,mjs,cjs}"],
     rules: {

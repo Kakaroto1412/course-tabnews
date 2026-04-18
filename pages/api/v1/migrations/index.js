@@ -12,7 +12,6 @@ async function migrations(request, response) {
     });
   }
 
-
   let dbClient;
 
   try {
@@ -28,7 +27,6 @@ async function migrations(request, response) {
     });
 
     return response.status(200).json(result);
-
   } catch (error) {
     console.error(error);
     return response.status(500).json({
