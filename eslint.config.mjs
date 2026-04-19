@@ -7,15 +7,20 @@ import prettier from "eslint-config-prettier/flat";
 import tseslint from "typescript-eslint";
 
 export default defineConfig([
+  globalIgnores([
+    ".next/**",
+    "out/**",
+    "build/**",
+    "next-env.d.ts",
+    "node_modules/**",
+  ]),
+
   js.configs.recommended,
   ...nextVitals,
   ...nextTs,
+  ...tseslint.configs.recommended,
   prettier,
 
-  // TypeScript (garante funcionamento correto)
-  ...tseslint.configs.recommended,
-
-  // Testes (Jest)
   {
     files: [
       "**/*.test.{js,jsx,ts,tsx}",
@@ -35,7 +40,6 @@ export default defineConfig([
     },
   },
 
-  // Scripts
   {
     files: ["jest.config.{js,mjs,cjs}", "infra/scripts/**/*.{js,mjs,cjs}"],
     rules: {
@@ -43,19 +47,10 @@ export default defineConfig([
     },
   },
 
-  // Migrations
   {
     files: ["infra/migrations/**/*.{js,mjs,cjs}"],
     rules: {
       "@typescript-eslint/no-unused-vars": "off",
     },
   },
-
-  globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-    "node_modules/**",
-  ]),
 ]);

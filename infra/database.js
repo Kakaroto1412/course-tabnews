@@ -10,7 +10,7 @@ async function query(queryObject) {
     console.error(error);
     throw error;
   } finally {
-    if (client) await client.end();
+    await client.end();
   }
 }
 
@@ -42,7 +42,5 @@ function getSSLValues() {
     };
   }
 
-  return process.env.NODE_ENV === "production"
-    ? { rejectUnauthorized: false }
-    : false;
+  return process.env.NODE_ENV === "production" ? true : false;
 }
