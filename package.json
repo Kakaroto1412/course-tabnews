@@ -17,7 +17,7 @@
     "lint:prettier:fix": "prettier --write .",
     "lint:eslint:check": "eslint .",
     "lint:eslint:fix": "eslint . --fix",
-    "test:watch": "jest --watchAll  --runInBand",
+    "test:watch": "jest --watchAll  --runInBand --verbose",
     "commit": "cz",
     "prepare": "husky"
   },
