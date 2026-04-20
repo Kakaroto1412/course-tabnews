@@ -1,44 +1,50 @@
-import { join } from "node:path";
-import database from "infra/database";
-const { runner } = await import("node-pg-migrate");
-const { ConnectionParameters } = await import(node - pg - migrate);
+import { runner as migrationRunner } from "node-pg-migrate";
+import { resolve } from "node:path";
+import database from "infra/database.js";
 
-async function migrations(request, response) {
+export default async function migrations(request, response) {
   const allowedMethods = ["GET", "POST"];
   if (!allowedMethods.includes(request.method)) {
     return response.status(405).json({
-      error: `Method "${request.method}" not allowedMethods`,
+      error: `Method "${request.method}" not allowed`,
     });
   }
+
   let dbClient;
+
   try {
     dbClient = await database.getNewClient();
 
     const defaultMigrationOptions = {
       dbClient: dbClient,
-      dir: join(process.cwd(), "infra", "migrations"),
+      dryRun: true,
+      dir: resolve(process.cwd(), "infra", "migrations"),
       direction: "up",
       verbose: true,
       migrationsTable: "pgmigrations",
-      dryRun: request.method === "GET",
     };
-    const result = await runner(defaultMigrationOptions);
 
-    if (request.method === "POST") {
-      return response.status(result.length > 0 ? 201 : 200).json(result);
+    if (request.method === "GET") {
+      const pendingMigrations = await migrationRunner(defaultMigrationOptions);
+      return response.status(200).json(pendingMigrations);
     }
 
-    // GET
-    return response.status(200).json(result);
+    if (request.method === "POST") {
+      const migratedMigrations = await migrationRunner({
+        ...defaultMigrationOptions,
+        dryRun: false,
+      });
+
+      if (migratedMigrations.length > 0) {
+        return response.status(201).json(migratedMigrations);
+      }
+
+      return response.status(200).json(migratedMigrations);
+    }
   } catch (error) {
     console.error(error);
-    return response.status(500).json({
-      error: "Migration endpoint failed",
-      details: error?.message ?? String(error),
-    });
+    throw error;
   } finally {
-    if (dbClient) await dbClient.end();
+    await dbClient.end();
   }
 }
-
-export default migrations;
