@@ -9,7 +9,7 @@
     "posttest": "npm run services:stop",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
-    "services:down": "docker compose -f infra/compose.yaml down",
+    "services:down": "docker compose -f infra/compose.yaml down -v",
     "services:wait:database": "node infra/scripts/wait-for-postgres.js",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
     "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
@@ -31,7 +31,8 @@
     "node-pg-migrate": "7.6.1",
     "pg": "8.20.0",
     "react": "19.2.5",
-    "react-dom": "19.2.5"
+    "react-dom": "19.2.5",
+    "swr": "2.4.1"
   },
   "devDependencies": {
     "@commitlint/cli": "20.5.0",
