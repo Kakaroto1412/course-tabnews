@@ -1,6 +1,6 @@
-import database from "infra/database.js";
+import database from "infra/database";
 
-async function status(request, response) {
+export default async function status(request, response) {
   const updatedAt = new Date().toISOString();
 
   const databaseVersionResult = await database.query("SHOW server_version;");
@@ -9,6 +9,7 @@ async function status(request, response) {
   const databaseMaxConnectionsResult = await database.query(
     "SHOW max_connections;",
   );
+
   const databaseMaxConnectionsValue =
     databaseMaxConnectionsResult.rows[0].max_connections;
 
@@ -31,5 +32,3 @@ async function status(request, response) {
     },
   });
 }
-
-export default status;
