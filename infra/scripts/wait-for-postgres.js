@@ -1,16 +1,16 @@
 const { exec } = require("node:child_process");
 
 function checkPostgres() {
-  exec("pg_isready -h localhost -p 5432 -U postgres", handleReturn);
+  exec("docker exec postgres-dev pg_isready --host localhost", handleReturn);
 
   function handleReturn(error, stdout) {
-    if (error || !stdout.includes("accepting connections")) {
+    if (stdout.search("accepting connections") === -1) {
       process.stdout.write(".");
-      setTimeout(checkPostgres, 1000);
+      checkPostgres();
       return;
     }
 
-    console.log("\n🟢 Postgres está pronto e acessível!\n");
+    console.log("\n🟢 Postgres está pronto e aceitando conexões!\n");
   }
 }
 
