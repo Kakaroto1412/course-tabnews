@@ -13,6 +13,7 @@ export default defineConfig([
     "build/**",
     "next-env.d.ts",
     "node_modules/**",
+    "eslint.config.js",
   ]),
 
   js.configs.recommended,
