@@ -3,21 +3,21 @@ name: Linting
 on:
   pull_request:
 
+permissions:
+  contents: read
+
 jobs:
   prettier:
     name: Prettier
     runs-on: ubuntu-latest
-
     defaults:
       run:
         shell: bash
-
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -36,17 +36,14 @@ jobs:
   eslint:
     name: ESLint
     runs-on: ubuntu-latest
-
     defaults:
       run:
         shell: bash
-
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -65,17 +62,14 @@ jobs:
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
-
     defaults:
       run:
         shell: bash
-
     env:
       FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 

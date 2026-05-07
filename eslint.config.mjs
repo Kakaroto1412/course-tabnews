@@ -1,33 +1,33 @@
-import { defineConfig, globalIgnores } from "eslint/config";
+import { defineConfig } from "eslint/config";
 import js from "@eslint/js";
 import nextVitals from "eslint-config-next/core-web-vitals";
-import nextTs from "eslint-config-next/typescript";
 import jest from "eslint-plugin-jest";
 import prettier from "eslint-config-prettier/flat";
-import tseslint from "typescript-eslint";
 
 export default defineConfig([
-  globalIgnores([
-    ".next/**",
-    "out/**",
-    "build/**",
-    "next-env.d.ts",
-    "node_modules/**",
-    "eslint.config.js",
-  ]),
+  // Ignora pastas de build / infra que não fazem sentido lintar
+  {
+    ignores: [
+      ".next/**",
+      "out/**",
+      "build/**",
+      "next-env.d.ts",
+      "node_modules/**",
+    ],
+  },
 
+  // Regras base de JavaScript
   js.configs.recommended,
+
+  // Regras oficiais do Next (core web vitals)
   ...nextVitals,
-  ...nextTs,
-  ...tseslint.configs.recommended,
+
+  // Desliga regras de estilo que conflitam com Prettier
   prettier,
 
+  // Bloco específico para arquivos de teste (Jest)
   {
-    files: [
-      "**/*.test.{js,jsx,ts,tsx}",
-      "**/*.spec.{js,jsx,ts,tsx}",
-      "tests/**/*.{js,jsx,ts,tsx}",
-    ],
+    files: ["**/*.test.{js,jsx}", "**/*.spec.{js,jsx}", "tests/**/*.{js,jsx}"],
     plugins: {
       jest,
     },
@@ -41,17 +41,21 @@ export default defineConfig([
     },
   },
 
+  // Bloco para scripts CJS (jest.config.js, scripts de infra)
   {
     files: ["jest.config.{js,mjs,cjs}", "infra/scripts/**/*.{js,mjs,cjs}"],
     rules: {
-      "@typescript-eslint/no-require-imports": "off",
+      // Ajuste aqui se quiser permitir outras coisas em scripts
+      "no-undef": "off",
+      "no-unused-vars": "off",
     },
   },
 
+  // Bloco para migrations: desliga no-unused-vars (pgm, etc.)
   {
     files: ["infra/migrations/**/*.{js,mjs,cjs}"],
     rules: {
-      "@typescript-eslint/no-unused-vars": "off",
+      "no-unused-vars": "off",
     },
   },
 ]);
