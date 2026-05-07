@@ -1,9 +1,13 @@
 import useSWR from "swr";
+
 async function fetchAPI(key) {
   const response = await fetch(key);
-  const responseBody = await response.json();
-  return responseBody;
+  if (!response.ok) {
+    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+  }
+  return response.json();
 }
+
 export default function StatusPage() {
   return (
     <>
@@ -13,37 +17,38 @@ export default function StatusPage() {
     </>
   );
 }
+
 function UpdateAt() {
-  const { isLoading, data } = useSWR("/api/v1/status", fetchAPI, {
+  const { data, error, isLoading } = useSWR("/api/v1/status", fetchAPI, {
     refreshInterval: 2000,
   });
-  let UpdateAtText = "carregando...";
-  if (!isLoading && data) {
-    UpdateAtText = new Date(data.updated_at).toLocaleString("pt-BR");
-  }
-  return <div>Ultima Atualização:{UpdateAtText}</div>;
+
+  if (error) return <div>Erro ao carregar: {error.message}</div>;
+  if (isLoading) return <div>Carregando...</div>;
+
+  return (
+    <div>
+      Última Atualização: {new Date(data.updated_at).toLocaleString("pt-BR")}
+    </div>
+  );
 }
+
 function DataBaseStatus() {
-  const { isLoading, data } = useSWR("/api/v1/status", fetchAPI, {
+  const { data, error, isLoading } = useSWR("/api/v1/status", fetchAPI, {
     refreshInterval: 2000,
   });
-  let dabaseStatusInformation = "Carregando...";
-  if (!isLoading && data) {
-    dabaseStatusInformation = (
-      <>
-        <div>Versão: {data.dependencies.database.version}</div>
-        <div>
-          Conexões abertas: {data.dependencies.database.opened_connections}
-        </div>
-        <div>
-          Conexões Maxinax: {data.dependencies.database.max_connections}
-        </div>
-      </>
-    );
-    return (
-      <>
-        <h2>Dados do DB{dabaseStatusInformation}</h2>
-      </>
-    );
-  }
+
+  if (error) return <div>Erro ao carregar banco: {error.message}</div>;
+  if (isLoading) return <div>Carregando dados do banco...</div>;
+
+  const db = data.dependencies.database;
+
+  return (
+    <>
+      <h2>Dados do Banco</h2>
+      <div>Versão: {db.version}</div>
+      <div>Conexões abertas: {db.opened_connections}</div>
+      <div>Conexões máximas: {db.max_connections}</div>
+    </>
+  );
 }
