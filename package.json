@@ -51,7 +51,8 @@
     "prettier": "3.8.3"
   },
   "engines": {
-    "node": ">=22"
+    "node": ">=22.0.0 <23",
+    "npm": ">=10"
   },
   "config": {
     "commitizen": {
