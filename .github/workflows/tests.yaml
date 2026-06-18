@@ -6,10 +6,16 @@ on:
 permissions:
   contents: read
 
+# Evita desperdício de minutos cancelando testes de commits antigos na mesma PR
+concurrency:
+  group: tests-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
   jest:
-    name: Jest ubuntu
+    name: Jest Ubuntu
     runs-on: ubuntu-latest
+    timeout-minutes: 15 # Garante que o job não vai travar rodando infinitamente
 
     defaults:
       run:
@@ -17,16 +23,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
+        uses: actions/checkout@v5 # Removido o fetch-depth: 0 para clonar mais rápido
 
       - name: Setup Node
-        uses: actions/setup-node@v5
-        id: node
+        uses: actions/setup-node@v6
         with:
-          node-version: "22"
-          cache: "npm"
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json # Garante um mapeamento de cache mais preciso
 
       - name: Install dependencies
         run: npm ci
