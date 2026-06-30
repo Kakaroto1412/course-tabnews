@@ -21,7 +21,9 @@
     "lint:eslint:fix": "eslint . --fix",
     "test:watch": "jest --watchAll  --runInBand --verbose",
     "commit": "cz",
-    "prepare": "husky"
+    "prepare": "husky",
+    "clean:modules": "rm -rf node_modules",
+    "reinstall:clean": "rm -rf node_modules && npm ci"
   },
   "license": "MIT",
   "author": "",
