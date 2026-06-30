@@ -16,8 +16,8 @@ export default async function pendingMigrations(request, response) {
   try {
     dbClient = await database.getNewClient();
 
-    const defaultMigrationOptions = {
-      dbClient,
+    const defaultMigrationOptions = await {
+      dbClient: dbClient,
       dryRun: true,
       dir: resolve("infra", "migrations"),
       direction: "up",

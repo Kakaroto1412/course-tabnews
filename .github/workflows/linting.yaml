@@ -6,26 +6,30 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: lint-${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
 jobs:
-  prettier:
-    name: Prettier
+  code-quality:
+    name: Prettier + ESLint
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+
     defaults:
       run:
         shell: bash
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
 
       - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: "24"
+          node-version: 24
           cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -33,53 +37,32 @@ jobs:
       - name: Run Prettier
         run: npm run lint:prettier:check
 
-  eslint:
-    name: ESLint
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        shell: bash
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-
-      - name: Setup Node
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
-          cache: npm
-
-      - name: Install dependencies
-        run: npm ci
-
       - name: Run ESLint
         run: npm run lint:eslint:check
 
   commitlint:
     name: Commitlint
     runs-on: ubuntu-latest
+    timeout-minutes: 5
+
     defaults:
       run:
         shell: bash
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
-          fetch-depth: 0
+          fetch-depth: 0 # Essencial para o commitlint conseguir ver o histórico de commits!
 
       - name: Setup Node
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
-          node-version: ">=22"
-          cache: npm
+          node-version: 24
 
-      - name: Install dependencies
-        run: npm ci
+      # Em vez de 'npm ci' (que baixa o projeto todo), instalamos apenas o commitlint e a config convencional
+      - name: Install Commitlint
+        run: npm install -g @commitlint/cli @commitlint/config-conventional
 
       - name: Run Commitlint
-        run: npx commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
+        run: commitlint --from "${{ github.event.pull_request.base.sha }}" --to "${{ github.event.pull_request.head.sha }}" --verbose
