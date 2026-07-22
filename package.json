@@ -5,14 +5,14 @@
   "main": "index.js",
   "scripts": {
     "dev": "npm run services:up && npm run services:wait:database && npm run migrations:up && next dev",
-    "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose\"",
+    "test": "npm run services:up && concurrently -n next,jest --hide next -k -s command-jest \"next dev\" \"jest --runInBand --verbose --detectOpenHandles\"",
     "posttest": "npm run services:stop",
     "services:up": "docker compose -f infra/compose.yaml up -d",
     "services:stop": "docker compose -f infra/compose.yaml stop",
     "services:down": "docker compose -f infra/compose.yaml down -v",
     "services:wait:database": "node infra/scripts/wait-for-postgres.js",
     "migrations:create": "node-pg-migrate -m infra/migrations create",
-    "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
+    "migrations:up": "node-pg-migrate -m infra/migrations --envPath .env.local up",
     "lint": "eslint . && prettier --check .",
     "lint:fix": "eslint . --fix && prettier --write .",
     "lint:prettier:check": "prettier --check .",
@@ -28,37 +28,41 @@
   "license": "MIT",
   "author": "",
   "dependencies": {
+    "next": "^16.2.11",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8",
     "async-retry": "1.3.3",
     "dotenv": "^17.4.2",
     "dotenv-expand": "13.0.0",
     "lodash": "^4.18.1",
-    "next": "^16.2.9",
+    "pg": "8.22.0",
     "next-connect": "1.0.0",
-    "pg": "8.21.0",
-    "postcss": "^8.5.15",
-    "react": "^19.2.7",
-    "react-dom": "^19.2.7",
-    "swr": "^2.4.1",
+    "swr": "^2.4.2",
     "tmp": "^0.2.7"
   },
+  "overrides": {
+    "postcss": "^8.5.10",
+    "sharp": "^0.35.0",
+    "shell-quote": "^1.9.0"
+  },
   "devDependencies": {
-    "@commitlint/cli": "21.0.2",
-    "@commitlint/config-conventional": "21.0.2",
+    "@commitlint/cli": "21.2.1",
+    "@commitlint/config-conventional": "21.2.0",
     "@eslint/js": "^9.39.4",
-    "@next/eslint-plugin-next": "16.2.9",
+    "@next/eslint-plugin-next": "16.2.11",
     "@types/react": "19.2.17",
     "commitizen": "^4.3.2",
     "concurrently": "^10.0.3",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "^9.39.4",
-    "eslint-config-next": "^16.2.9",
+    "eslint-config-next": "^16.2.11",
     "eslint-config-prettier": "10.1.8",
-    "eslint-plugin-jest": "29.15.2",
-    "globals": "^17.6.0",
+    "eslint-plugin-jest": "29.15.5",
+    "globals": "^17.7.0",
     "husky": "9.1.7",
     "jest": "^30.4.2",
-    "node-pg-migrate": "^8.0.4",
-    "prettier": "^3.9.3"
+    "node-pg-migrate": "^9.0.0",
+    "prettier": "^3.9.6"
   },
   "engines": {
     "node": "24"
@@ -67,5 +71,9 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "allowScripts": {
+    "sharp@0.34.5": true,
+    "unrs-resolver@1.12.2": true
   }
 }
