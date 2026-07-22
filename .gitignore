@@ -12,6 +12,7 @@ next-env.d.ts
 .env.local
 .env
 .env.production
+.env.development
 
 
 
